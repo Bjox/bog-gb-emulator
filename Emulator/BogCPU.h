@@ -19,6 +19,7 @@
 #define LD_HL_D16 0x21 // LD HL,d16
 #define LD_PHLM_A 0x32 // LD (HL-),A  
 #define XOR_A     0xAF // XOR A
+#define JR_NZ_R8  0x20 // JR NZ,r8
 #define PREFIX_CB 0xCB // PREFIX CB
 
 // CB EXTENSION
@@ -26,9 +27,9 @@
 #define RL        1    // Rotate left through C flag
 #define SLA       2    // Shift left
 #define SWAP      3    // Swap high and low nibble
-#define BIT       4    // Bit check
-#define RES       5
-#define SET       6
+#define BIT       4    // Check if n'th bit is set
+#define RES       5    // Reset n'th bit
+#define SET       6    // Set n'th bit
 #define RRC       7    // Rotate right
 #define RR        8    // Rotate right through C flag
 #define SRA       9    // Shift right (preserve sign)

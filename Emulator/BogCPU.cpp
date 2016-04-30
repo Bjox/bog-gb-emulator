@@ -81,6 +81,11 @@ void BogCPU::run()
 				cycles += 4;
 				break;
 
+			case JR_NZ_R8:
+				PC += (int8_t)(!isSet(Z_FLAG) * mem[PC++]);
+				cycles += 8 + (!isSet(Z_FLAG) * 4);
+				break;
+
 			case PREFIX_CB:
 				cycles += 4;
 				opcode = mem[PC++];
@@ -164,13 +169,13 @@ void BogCPU::cb(byte opcode)
 		F |= (~*valuePtr >> op1 & 1) << Z_FLAG;
 		break;
 
-	/*case RES:
-
+	case RES:
+		*valuePtr &= ~(1 << op1);
 		break;
 
 	case SET:
-
-		break;*/
+		*valuePtr |= 1 << op1;
+		break;
 
 	case RRC:
 		*valuePtr = _rotr8(*valuePtr, 1);
@@ -216,4 +221,5 @@ void BogCPU::printRegisters()
 	printf("HL = 0x%04X\n", (int)*HL);
 	printf("SP = 0x%04X\n", (int)SP);
 	printf("PC = 0x%04X\n", (int)PC);
+	printf("cycles = %d\n", (int)cycles);
 }
